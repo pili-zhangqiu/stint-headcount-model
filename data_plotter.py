@@ -1,10 +1,10 @@
-import pandas as pd
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
 import numpy as np
-import os
+import pandas as pd
+import plotly.graph_objects as go
 import seaborn as sns
 
+import os
 
 class DataPlotter:
     def __init__(self, df:pd.DataFrame) -> None:
@@ -35,7 +35,7 @@ class DataPlotter:
         
         plt.yticks(np.arange(min(df['headcount']), max(df['headcount'])+1, 1.0))
         plt.title('Headcount vs sales\n(grouped by sites)', loc='center')
-        plt.xlabel('Sales (GBP)', loc='center')
+        plt.xlabel('Sales (£)', loc='center')
         plt.ylabel('Headcount', loc='center')
         lgd = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         
@@ -66,7 +66,7 @@ class DataPlotter:
         
         plt.yticks(np.arange(min(df['headcount']), max(df['headcount'])+1, 1.0))
         plt.title(f'Headcount vs sales\n({period_of_day})', loc='center')
-        plt.xlabel('Sales (GBP)', loc='center')
+        plt.xlabel('Sales (£)', loc='center')
         plt.ylabel('Headcount', loc='center')
         lgd = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         
@@ -127,7 +127,7 @@ class DataPlotter:
             
         plt.title('Sales\n(grouped by sites and periods of day)', loc='center')
         plt.xlabel('Period of Day', loc='center')
-        plt.ylabel('Headcount', loc='center')
+        plt.ylabel('Sales (£)', loc='center')
         lgd = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         
         # Save plot
@@ -159,7 +159,7 @@ class DataPlotter:
             
         plt.title('Sales\n(grouped by sites and periods of day)', loc='center')
         plt.xlabel('Period of Day', loc='center')
-        plt.ylabel('Headcount', loc='center')
+        plt.ylabel('Sales (£)', loc='center')
         lgd = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         
         # Save plot
@@ -175,11 +175,27 @@ class DataPlotter:
         
         plt.title('Sales\n(grouped by sites and periods of day)', loc='center')
         plt.xlabel('Site', loc='center')
-        plt.ylabel('Sales', loc='center')
+        plt.ylabel('Sales (£)', loc='center')
         lgd = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         
         # Save plot
         if not os.path.exists("plots"):
             os.makedirs("plots")
         plt.savefig(fname="plots/violinplot_sales_per_site_period", bbox_extra_artists=(lgd,), bbox_inches='tight')
+    
+    def violinplot_per_site_period(self, x:str, y:str, hue:str):
+        df = self.df_training
+
+        fig = plt.figure()
+        sns.violinplot(x=x, y=y, hue=hue, data=df, palette="rocket")
+        
+        plt.title(f'{y.replace("_", " ")}\n(grouped by {x.replace("_", " ")} and {hue.replace("_", " ")})', loc='center')
+        plt.xlabel(f'{x.replace("_", " ")}', loc='center')
+        plt.ylabel(f'{y.replace("_", " ")} (£)', loc='center')
+        lgd = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        
+        # Save plot
+        if not os.path.exists("plots"):
+            os.makedirs("plots")
+        plt.savefig(fname=f"plots/violinplot_{y}_per_{x}_{hue}", bbox_extra_artists=(lgd,), bbox_inches='tight')
         
