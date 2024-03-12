@@ -8,6 +8,7 @@ class DataProcessor():
         self.df_training_raw = self.load_csv(filepath)
         self.df_training_clean = self.clean_df()
         self.df_training_extended = self.calculate_profit_per_headcount()
+        self.df_training_optimal_prof = self.return_df_optimal_profitability()
     
     def load_csv(self, filepath:str):
         """
@@ -57,8 +58,36 @@ class DataProcessor():
         # Calculate profits
         df_extended["total_profit"] = df_extended["sales"] - (df_extended["sales_taxes"] + df_extended["labour_costs"])
         df_extended["avg_profit_per_headcount"] = df_extended["total_profit"] / df_extended["headcount"]
-                    
+        
+        # Calculate profitability
+        df_extended["profitability"] = df_extended.apply(self.check_profitability, axis=1)
+           
         return df_extended
+    
+    def check_profitability(self, row):
+        """
+        Filter method for pandas dataframe.
+        Checks for profitability: negative (<=0), sub-optimal (1-59) or optimal (>=60).
+        """
+        if row['avg_profit_per_headcount'] <= 0:
+            prof = "negative"
+        elif 0 < row['avg_profit_per_headcount'] < 40:
+            prof = "sub-optimal"
+        else:
+            prof = "optimal"
+        return prof
+    
+    def return_df_optimal_profitability(self):
+        """
+        Returned filtered dataframe with only rows with optimal profitability.
+        """
+        df = self.df_training_extended
+        df_optimal_prof = df.loc[df['profitability'] == 'optimal']
+        return df_optimal_prof
+
 
     def describe_df_column(self, column:str):
+        """
+        Describe specific dataframe column.
+        """
         print(self.df_training_extended.groupby(['site','period_of_day'])[column].describe())
