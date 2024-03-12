@@ -10,6 +10,25 @@ class DataPlotter:
     def __init__(self, df:pd.DataFrame) -> None:
         self.df_training = df
         
+    def plot_all(self):
+        """
+        Plots all relevant graphs.
+        """
+        # Scatter plots
+        self.scatterplot_headcount_vs_sales_per_site()
+        self.scatterplot_headcount_vs_sales_per_site_period("morning")
+        self.scatterplot_headcount_vs_sales_per_site_period("afternoon")
+        self.scatterplot_headcount_vs_sales_per_site_period("evening")
+        
+        # Box plots
+        self.boxplot_headcount_per_site_period()
+        self.boxplot_sales_per_site_period_a()
+        self.boxplot_sales_per_site_period_b()
+
+        # Violin plots
+        self.violinplot_sales_per_site_period()
+        self.violinplot_per_site_period(x="site", y="avg_profit_per_headcount", hue="period_of_day")
+
     def scatterplot_headcount_vs_sales_per_site(self):
         """
         Scatered plot showing relationship between headcount and sales.
@@ -195,4 +214,4 @@ class DataPlotter:
         if not os.path.exists("plots"):
             os.makedirs("plots")
         plt.savefig(fname=f"plots/violinplot_{y}_per_{x}_{hue}", bbox_extra_artists=(lgd,), bbox_inches='tight')
-        
+    
