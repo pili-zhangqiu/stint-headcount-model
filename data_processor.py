@@ -59,3 +59,6 @@ class DataProcessor():
         df_extended["avg_profit_per_headcount"] = df_extended["total_profit"] / df_extended["headcount"]
                     
         return df_extended
+
+    def describe_df_column(self, column:str):
+        print(self.df_training_extended.groupby(['site','period_of_day'])[column].describe())

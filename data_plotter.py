@@ -141,7 +141,6 @@ class DataPlotter:
         Grouped by site and period.
         """
         df = self.df_training
-        #print(df.groupby(['site','period_of_day'])['sales'].describe())
         
         # Plots
         fig = plt.figure()
@@ -154,9 +153,7 @@ class DataPlotter:
             medianprops={"color": "black", "linewidth": 1},
             flierprops={"marker": "x"},
             gap=.1)
-        '''sns.pointplot(data=df, x='site', y='sales', hue='period_of_day', errorbar=None,
-              dodge=.8 - .8 / 3, linewidth=.75, palette='dark:black', marker='D')'''
-            
+
         plt.title('Sales\n(grouped by sites and periods of day)', loc='center')
         plt.xlabel('Period of Day', loc='center')
         plt.ylabel('Sales (£)', loc='center')
