@@ -7,6 +7,7 @@ class DataProcessor():
     def __init__(self, filepath:str) -> None:
         self.df_training_raw = self.load_csv(filepath)
         self.df_training_clean = self.clean_df()
+        self.df_training_extended = self.calculate_profit_per_headcount()
     
     def load_csv(self, filepath:str):
         """
@@ -37,4 +38,24 @@ class DataProcessor():
         df['headcount'] = df['headcount'].astype(int)
 
         return df
+    
+    def calculate_profit_per_headcount(self):
+        """
+        Calculates the average profit per staff member. 
+        Profit is simplified as sales minus tax and salaries.
         
+        Assumptions: 
+        - Tax rate is 20%
+        - Salary is £11.95 per staff member (London living wage 2022-2023).
+        """
+        df_extended = self.df_training_clean
+        
+        # Calculate taxes and costs
+        df_extended["sales_taxes"] = df_extended["sales"] * 0.2
+        df_extended["labour_costs"] = df_extended["headcount"] * 11.95
+        
+        # Calculate profits
+        df_extended["total_profit"] = df_extended["sales"] - (df_extended["sales_taxes"] + df_extended["labour_costs"])
+        df_extended["avg_profit_per_headcount"] = df_extended["total_profit"] / df_extended["headcount"]
+                    
+        return df_extended

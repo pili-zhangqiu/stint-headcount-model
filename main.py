@@ -8,6 +8,7 @@ if __name__ == '__main__':
 
     # Explore the data - Plots
     plotter = DataPlotter(data)
+    plotter.violinplot_per_site_period(x="site", y="avg_profit_per_headcount", hue="period_of_day")
     
     plotter.scatterplot_headcount_vs_sales_per_site()
     plotter.scatterplot_headcount_vs_sales_per_site_period("morning")
