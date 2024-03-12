@@ -17,3 +17,5 @@ if __name__ == '__main__':
     plotter.boxplot_headcount_per_site_period()
     plotter.boxplot_sales_per_site_period_a()
     plotter.boxplot_sales_per_site_period_b()
+
+    plotter.violinplot_sales_per_site_period()

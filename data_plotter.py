@@ -99,7 +99,7 @@ class DataPlotter:
         plt.xlabel('Period of Day', loc='center')
         plt.ylabel('Headcount', loc='center')
         lgd = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-        
+
         # Save plot
         if not os.path.exists("plots"):
             os.makedirs("plots")
@@ -141,6 +141,7 @@ class DataPlotter:
         Grouped by site and period.
         """
         df = self.df_training
+        #print(df.groupby(['site','period_of_day'])['sales'].describe())
         
         # Plots
         fig = plt.figure()
@@ -165,4 +166,20 @@ class DataPlotter:
         if not os.path.exists("plots"):
             os.makedirs("plots")
         plt.savefig(fname="plots/boxplot_sales_per_site_period_b", bbox_extra_artists=(lgd,), bbox_inches='tight')
+       
+    def violinplot_sales_per_site_period(self):
+        df = self.df_training
+
+        fig = plt.figure()
+        sns.violinplot(x="site", y="sales", hue="period_of_day", data=df, palette="rocket")
+        
+        plt.title('Sales\n(grouped by sites and periods of day)', loc='center')
+        plt.xlabel('Site', loc='center')
+        plt.ylabel('Sales', loc='center')
+        lgd = plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        
+        # Save plot
+        if not os.path.exists("plots"):
+            os.makedirs("plots")
+        plt.savefig(fname="plots/violinplot_sales_per_site_period", bbox_extra_artists=(lgd,), bbox_inches='tight')
         
