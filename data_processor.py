@@ -90,4 +90,5 @@ class DataProcessor():
         """
         Describe specific dataframe column.
         """
+        print(f"\nTable description for {column}")
         print(self.df_training_extended.groupby(['site','period_of_day'])[column].describe())
