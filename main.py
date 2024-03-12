@@ -1,11 +1,13 @@
 from data_processor import DataProcessor
 from data_plotter import DataPlotter
+from model_optimal_headcount import ModelOptimalHeadcount
+
 
 if __name__ == '__main__':
-    # Setup - Load and clean data
+    # ----- Setup - Load and clean data -----
     data_processor = DataProcessor('sites_data.csv')
 
-    # Explore the data - Plots
+    # ----- Explore the data - Plots -----
     # Describe and plot all values
     print("\n----- Extended Data - All Profitabilities -----")
     data = data_processor.df_training_extended
@@ -29,3 +31,8 @@ if __name__ == '__main__':
     
     plotter_prof = DataPlotter(data_optimal_prof)
     #plotter_prof.plot_all()
+    
+    # ----- Model -----
+    print("\n----- Model -----")
+    rf_model = ModelOptimalHeadcount(data_optimal_prof, print_tree=False)
+    

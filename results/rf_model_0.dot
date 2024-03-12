@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label="site <= 1.5\nsamples = 100.0%\nvalue = [0.578, 0.362, 0.056, 0.004]", fillcolor="#f6d4bc"] ;
+1 [label="sales <= 249.29\nsamples = 32.6%\nvalue = [0.549, 0.341, 0.104, 0.005]", fillcolor="#f7d7c0"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="period_of_day <= 2.5\nsamples = 18.8%\nvalue = [0.953, 0.047, 0.0, 0.0]", fillcolor="#e68743"] ;
+1 -> 2 ;
+3 [label="(...)", fillcolor="#C0C0C0"] ;
+2 -> 3 ;
+12 [label="(...)", fillcolor="#C0C0C0"] ;
+2 -> 12 ;
+19 [label="period_of_day <= 2.5\nsamples = 13.8%\nvalue = [0.004, 0.738, 0.245, 0.013]", fillcolor="#87ee7e"] ;
+1 -> 19 ;
+20 [label="(...)", fillcolor="#C0C0C0"] ;
+19 -> 20 ;
+41 [label="(...)", fillcolor="#C0C0C0"] ;
+19 -> 41 ;
+322 [label="period_of_day <= 1.5\nsamples = 67.4%\nvalue = [0.592, 0.372, 0.032, 0.003]", fillcolor="#f6d3ba"] ;
+0 -> 322 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+323 [label="site <= 3.5\nsamples = 24.2%\nvalue = [0.584, 0.416, 0.0, 0.0]", fillcolor="#f7dbc6"] ;
+322 -> 323 ;
+324 [label="(...)", fillcolor="#C0C0C0"] ;
+323 -> 324 ;
+333 [label="(...)", fillcolor="#C0C0C0"] ;
+323 -> 333 ;
+344 [label="site <= 2.5\nsamples = 43.2%\nvalue = [0.597, 0.347, 0.051, 0.005]", fillcolor="#f5cfb3"] ;
+322 -> 344 ;
+345 [label="(...)", fillcolor="#C0C0C0"] ;
+344 -> 345 ;
+372 [label="(...)", fillcolor="#C0C0C0"] ;
+344 -> 372 ;
+}
