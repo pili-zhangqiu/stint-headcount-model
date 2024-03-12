@@ -8,6 +8,7 @@ if __name__ == '__main__':
 
     # Explore the data - Plots
     # Describe
+    print(data.head(10))
     data_processor.describe_df_column("sales")
     data_processor.describe_df_column("total_profit")
     data_processor.describe_df_column("avg_profit_per_headcount")
