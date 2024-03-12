@@ -34,5 +34,5 @@ if __name__ == '__main__':
     
     # ----- Model -----
     print("\n----- Model -----")
-    rf_model = ModelOptimalHeadcount(data_optimal_prof, print_tree=False)
+    rf_model = ModelOptimalHeadcount(data_optimal_prof, print_tree=False, show_cm=False, show_pred=True)
     
